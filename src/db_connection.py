@@ -96,3 +96,15 @@ class NotesDB:
 
         except (Exception, Error) as error:
             print("Error while deleting data", error)
+
+    def check_note_id(self, note_id):
+        try:
+            get_note_query = f'SELECT * FROM note WHERE note_id = %s;'
+
+            self.cursor.execute(get_note_query, (note_id,))
+            record = self.cursor.fetchall()[0]
+
+            return True if record else False
+
+        except (Exception, Error) as error:
+            print("Error while getting data", error)

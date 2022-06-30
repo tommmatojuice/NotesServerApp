@@ -8,6 +8,11 @@ client = TestClient(app)
 
 
 def test_get_notes_1():
+    """
+    Test to check getting all notes:
+
+    :return: None
+    """
     response = client.get(f"https://cnva5b.deta.dev/notes/")
     assert response.status_code == 200
     assert response.json() == [
@@ -22,6 +27,11 @@ def test_get_notes_1():
 
 
 def test_post_note():
+    """
+    Test to check posting a note:
+
+    :return: None
+    """
     response = client.post(
         "https://cnva5b.deta.dev/notes/",
         json={
@@ -43,6 +53,11 @@ def test_post_note():
 
 
 def test_get_notes_2():
+    """
+    Test to check getting all notes after posting a new one:
+
+    :return: None
+    """
     response = client.get(f"https://cnva5b.deta.dev/notes/")
     assert response.status_code == 200
     assert response.json() == [
@@ -64,6 +79,11 @@ def test_get_notes_2():
 
 
 def test_post_note_bad_date():
+    """
+    Test to check posting note with wrong execute date:
+
+    :return: None
+    """
     response = client.post(
         "https://cnva5b.deta.dev/notes/",
         json={
@@ -88,6 +108,11 @@ def test_post_note_bad_date():
 
 
 def test_get_note_by_id():
+    """
+    Test to check getting a note by ID:
+
+    :return: None
+    """
     response = client.get(f"https://cnva5b.deta.dev/notes/{new_id}")
     assert response.status_code == 200
     assert response.json() == {
@@ -100,6 +125,11 @@ def test_get_note_by_id():
 
 
 def test_get_note_by_id_bad_id():
+    """
+    Test to check getting a note by ID with wrong ID:
+
+    :return: None
+    """
     response = client.get(f"https://cnva5b.deta.dev/notes/0")
     assert response.status_code == 404
     assert response.json() == {
@@ -108,6 +138,11 @@ def test_get_note_by_id_bad_id():
 
 
 def test_make_note_done():
+    """
+    Test to check marking a note as done by ID:
+
+    :return: None
+    """
     response = client.put(f"https://cnva5b.deta.dev/notes/{new_id}")
     assert response.status_code == 200
     assert response.json() == {
@@ -120,6 +155,11 @@ def test_make_note_done():
 
 
 def test_make_note_done_bad_id():
+    """
+    Test to check marking a note as done by ID with wrong ID:
+
+    :return: None
+    """
     response = client.get(f"https://cnva5b.deta.dev/notes/0")
     assert response.status_code == 404
     assert response.json() == {
@@ -128,6 +168,11 @@ def test_make_note_done_bad_id():
 
 
 def test_get_notes_3():
+    """
+    Test to check getting notes after making on of them done:
+
+    :return: None
+    """
     response = client.get(f"https://cnva5b.deta.dev/notes/")
     assert response.status_code == 200
     assert response.json() == [
@@ -149,12 +194,22 @@ def test_get_notes_3():
 
 
 def test_delete_note():
+    """
+    Test to check deleting a note by ID:
+
+    :return: None
+    """
     response = client.delete(f"https://cnva5b.deta.dev/notes/{new_id}")
     assert response.status_code == 200
     assert response.json() == {'message': f'Note was successfully deleted'}
 
 
 def test_delete_note_bad_id():
+    """
+    Test to check deleting a note by ID with wrong ID:
+
+    :return: None
+    """
     response = client.get(f"https://cnva5b.deta.dev/notes/0")
     assert response.status_code == 404
     assert response.json() == {

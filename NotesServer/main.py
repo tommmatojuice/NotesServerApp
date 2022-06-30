@@ -20,7 +20,6 @@ def get_note(note_id):
 async def post_note(note: NoteIn):
     try:
         note_id = db.add_note(note)
-
         return get_note(note_id)
 
     except Exception:
@@ -30,7 +29,7 @@ async def post_note(note: NoteIn):
 @app.get("/notes/", response_model=List[NoteOut])
 async def get_notes():
     try:
-        result = [Note(note[0], note[1], note[2], note[3].strftime(TIME_FORMAT)).__dict__
+        result = [Note(note[0], note[1], note[2], note[3].strftime(TIME_FORMAT), note[4]).__dict__
                   for note in db.get_notes()]
         return result
 
@@ -40,31 +39,30 @@ async def get_notes():
 
 @app.get("/notes/{note_id}", response_model=NoteOut)
 async def get_note_by_id(note_id: int):
-    try:
-        reply = get_note(note_id)
-    except Exception:
-        raise HTTPException(status_code=500, detail="There was an error getting the note")
-
-    if not reply:
+    if not db.check_note_id(note_id):
         raise HTTPException(status_code=404, detail="There is no note with such id")
-    return reply
+    else:
+        try:
+            return get_note(note_id)
+        except Exception:
+            raise HTTPException(status_code=500, detail="There was an error getting the note")
 
 
 @app.put("/notes/{note_id}", response_model=NoteOut)
 async def set_note_done(note_id: int):
-    if db.check_note_id(note_id):
+    if not db.check_note_id(note_id):
         raise HTTPException(status_code=404, detail="There is no note with such id")
     else:
         try:
-            db.check_note(note_id)
+            db.make_note_done(note_id)
             return get_note(note_id)
         except Exception:
-            raise HTTPException(status_code=500, detail="There was an error changing the not")
+            raise HTTPException(status_code=500, detail="There was an error changing the note")
 
 
 @app.delete("/notes/{note_id}")
 async def delete_note(note_id: int):
-    if db.check_note_id(note_id):
+    if not db.check_note_id(note_id):
         raise HTTPException(status_code=404, detail="There is no note with such id")
     else:
         try:

@@ -7,7 +7,7 @@ class Note:
     Class describes the structure of a note
     """
 
-    def __init__(self, note_id, title, memo, execute_date, is_done=False):
+    def __init__(self, note_id: int, title: str, memo: str, execute_date: date, is_done: bool = False):
         """
         Initializing a note:
 

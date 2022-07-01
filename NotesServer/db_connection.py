@@ -27,7 +27,7 @@ class NotesDB:
 
     def create_table(self):
         """
-        Creating the table 'note' in database:
+        Creating the table 'note' in the database:
 
         :return: None
         """
@@ -65,7 +65,7 @@ class NotesDB:
         """
         Inserting new note:
 
-        :param note: object of class Note
+        :param note: object of class NoteIn
         :return: note as a tuple
         """
         try:
@@ -79,9 +79,9 @@ class NotesDB:
         except (Exception, Error) as error:
             print("Error while getting data", error)
 
-    def get_note_by_id(self, note_id):
+    def get_note_by_id(self, note_id: int):
         """
-        Getting note by id:
+        Getting a note by id:
 
         :param note_id: note ID
         :return: note as a tuple
@@ -95,9 +95,9 @@ class NotesDB:
         except (Exception, Error) as error:
             print("Error while getting data", error)
 
-    def make_note_done(self, note_id):
+    def make_note_done(self, note_id: int):
         """
-        Marking note as done:
+        Marking a note as done:
 
         :param note_id: note ID
         :return: note as a tuple
@@ -113,7 +113,7 @@ class NotesDB:
         except (Exception, Error) as error:
             print("Error while getting data", error)
 
-    def delete_note(self, note_id):
+    def delete_note(self, note_id: int):
         """
         Deleting a note:
 
@@ -129,9 +129,9 @@ class NotesDB:
         except (Exception, Error) as error:
             print("Error while deleting data", error)
 
-    def check_note_id(self, note_id):
+    def check_note_id(self, note_id: int):
         """
-        Checking existence of note ID:
+        Checking existence of a note ID:
 
         :param note_id: note ID
         :return: boolean value of existence
@@ -144,3 +144,6 @@ class NotesDB:
 
         except (Exception, Error) as error:
             print("Error while getting data", error)
+
+
+
